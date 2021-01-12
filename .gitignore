@@ -3,6 +3,7 @@
 __pycache__/
 data/*/
 runs/
+models/
 训练结果备份（最终1）/
 *.onnx
 模型可视化探索.txt

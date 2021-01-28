@@ -3,8 +3,7 @@ import torchvision
 from torchvision import datasets,transforms
 import torch.optim as optim
 from torch.autograd import Variable
-from data.loaddata import data_data
-from config import data_txt,batch_size,midout_path,image_path,midout_path2
+from config import test_txt,batch_size,midout_path,image_path,midout_path2
 import sys
 import os
 from PIL import Image
@@ -30,9 +29,9 @@ def makeResult(part_name,model):
         #print('flip start')
     image_tran.append(transforms.ToTensor())
     image_tran=transforms.Compose(image_tran);
-    data_data=data_loader3("data",batch_size,image_tran,None,part_name)
+    test_data=data_loader3("test",batch_size,image_tran,None,part_name)
     k=0;
-    for data in data_data.get_loader():
+    for data in test_data.get_loader():
         if (use_gpu):
             data=data.cuda()        
         output=model(data)
@@ -53,7 +52,9 @@ def makeResult(part_name,model):
         '''
         for i in range(batch_size):
             path=midout_path2+'\\'+path_list[k]+'\\'+part_name;                
-            data2=unloader(data[i].cpu())
+            data2=unloader(data[i].cpu())            
+            if not os.path.exists(path):
+                os.makedirs(path);
             data2.save(path+"\\"+path_list[k]+".jpg",quality=100);
             image=output[i].cpu().clone();            
             image = torch.softmax(image, dim=0).argmax(dim=0, keepdim=False)
@@ -61,9 +62,7 @@ def makeResult(part_name,model):
             if (part_name=="mouth"):
                 image=torch.zeros(4,sizemouth,sizemouth).scatter_(0, image, 255)  
             else:
-                image=torch.zeros(2,sizeother,sizeother).scatter_(0, image, 255)  
-            if not os.path.exists(path):
-                os.makedirs(path);
+                image=torch.zeros(2,sizeother,sizeother).scatter_(0, image, 255)              
             if (part_name=="mouth"):
                 for j in range(4):
                     image2=unloader(np.uint8(image[j].numpy()))
@@ -82,7 +81,7 @@ def makeResult(part_name,model):
            
 path_list=[]
 path_num=0
-with open(data_txt) as f:                        
+with open(test_txt) as f:                        
     lines=f.readlines()
     for line in lines:
         if (line.strip()==""):continue                                                                

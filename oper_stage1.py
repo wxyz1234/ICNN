@@ -3,8 +3,8 @@ import torchvision
 from torchvision import datasets,transforms
 import torch.optim as optim
 from torch.autograd import Variable
-from data.loaddata import data_data
-from config import data_txt,batch_size,midout_path,image_path
+from data.loaddata import test_data
+from config import test_txt,batch_size,midout_path,image_path
 import sys
 import os
 from PIL import Image
@@ -85,7 +85,7 @@ def makeResult(part_name,output,imagename):
 
 path_list=[]
 path_num=0
-with open(data_txt) as f:                        
+with open(test_txt) as f:                        
     lines=f.readlines()
     for line in lines:
         if (line.strip()==""):continue                                                                
@@ -99,7 +99,7 @@ print("use_gpu=",use_gpu)
 if (use_gpu):
     model=model.cuda() 
 unloader = transforms.ToPILImage()
-for data,target in data_data.get_loader():
+for data,target in test_data.get_loader():
     if (use_gpu):
         data=data.cuda()
         target=target.cuda()

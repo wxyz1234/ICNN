@@ -4,7 +4,10 @@ __pycache__/
 data/*/
 runs/
 models/
+cache/
+cache_linux/
 训练结果备份（最终1）/
+训练结果备份2/
 *.onnx
 模型可视化探索.txt
 后台运行.txt
@@ -16,6 +19,9 @@ F1_score.py
 jupyter notebook.txt
 all_scalars.json
 check.ipynb
+out.txt
+out1.txt
+out2.txt
 
 #生成结果
 Netdata

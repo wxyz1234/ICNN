@@ -3,8 +3,8 @@ import torchvision
 from torchvision import datasets,transforms
 import torch.optim as optim
 from torch.autograd import Variable
-from data.loaddata import data_data
-from config import data_txt,batch_size,midout_path,image_path,midout_path2,output_path3
+from data.loaddata import test_data
+from config import test_txt,batch_size,midout_path,image_path,midout_path2,output_path3
 import sys
 import os
 from PIL import Image
@@ -83,7 +83,7 @@ def change(ans,part_name,path):
 path_list=[]
 path_num=0
 unloader = transforms.ToPILImage()
-with open(data_txt) as f:                        
+with open(test_txt) as f:                        
     lines=f.readlines()
     for line in lines:
         if (line.strip()==""):continue                                                                

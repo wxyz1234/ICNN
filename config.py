@@ -12,5 +12,7 @@ midout_path2 = '.\\data\\midout2'
 output_path3 = '.\\data\\output3'
 
 facail_part_path = '.\\data\\facial_parts'
+loss_image_path = '.\\cache'
 
 batch_size = 4
+epoch_num = 25
